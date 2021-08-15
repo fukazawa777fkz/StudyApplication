@@ -1,0 +1,99 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>いんでっくす!!!</title>
+        <script src="../js/proc.js"></script>
+
+
+
+
+
+
+    
+</head>
+<body>
+    <h1>いんでっくすあああ</h1>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html
+xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layouts/layout}">
+
+<head>
+    <title>ホーム</title>
+</head>
+
+    <body>
+
+        <div layout:fragment="content">
+
+
+        <!-- 画面固有のjs -->
+
+            <div layout:fragment="script_js">
+                <!-- <script type="text/javascript" th:src="@{./js/proc.js}"></script> -->
+                <script type="text/javascript" th:src="@{/demo.js}"></script>
+                <script type="text/javascript" th:src="@{/js/proc.js}"></script>
+
+                <!-- <script th:src="${'../js/proc.js'" charset="utf-8"></script> -->
+            </div>
+            <!-- <script src="./js/proc.js"></script> -->
+            <p>
+                <span th:text="${result}">test</span>
+            </p>
+
+            <p>問１　あなたはテレビを買いました。 </p>
+            　<input type="text" id="q1">
+            　<input type="button" id="a1" value= "確認" onclick="exec1()">
+            　<input type="button" id="h1" value= "ヒント" onclick="execHint1()">
+            <div class="class2">
+                <img id="img1" th:src="@{/image/正解1.jfif}" style="display:none">
+                <img id="img1hazure1" th:src="@{/image/はずれ.png}" style="display:none">
+                <div id="o1"></div>
+            </div>
+
+            <p>問２　あなたはテレビを買いましたか。 </p>
+            　<input type="text" id="q2"  >
+            　<input type="button" id="a2" value= "確認" onclick="exec2()";>
+                <div class="class2">
+                    <img id="img2" th:src="@{/image/正解2.jfif}" style="display:none">
+                    <img id="img1hazure2" th:src="@{/image/はずれ.png}" style="display:none">
+                    <div id="o2"></div>
+                </div>
+
+            <p>問３　あなたはテレビをみている所です。 </p>
+            　<input type="text" id="q3"  >
+            　<input type="button" id="a3" value= "確認" onclick="exec3()";>
+                <div class="class2">
+                    <img id="img3" th:src="@{/image/正解3.jfif}" style="display:none">
+                    <img id="img1hazure3" th:src="@{/image/はずれ.png}" style="display:none">
+                    <div id="o3"></div>
+                </div>
+
+            <p>問４　あなたは昨日テレビをみましたか。 </p>
+            　<input type="text" id="q4"  >
+            　<input type="button" id="a4" value= "確認" onclick="exec4()";>
+            <div class="class2">
+                <img id="img4" th:src="@{/image/正解4.jfif}" style="display:none">
+                <img id="img1hazure4" th:src="@{/image/はずれ.png}" style="display:none">
+                <div id="o4"></div>
+            </div>
+
+            <p>問５　あなたは明日テレビをみます。 </p>
+            　<input type="text" id="q5"  >
+            　<input type="button" id="a5" value= "確認" onclick="exec5()";>
+                <div class="class2">
+                    <img id="img5" th:src="@{/image/正解5.jpg}" style="display:none">
+                    <img id="img1hazure5" th:src="@{/image/はずれ.png}" style="display:none">
+                    <div id="o5"></div>
+                </div>
+        </div>
+     </body>
+    
+    
+    
+</html> 
