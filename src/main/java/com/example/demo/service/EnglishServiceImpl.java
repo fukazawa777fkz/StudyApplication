@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -8,8 +8,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import com.example.demo.form.EnglishForm;
+import com.example.demo.mapper.UserDataMapper;
+
 @Service
-public class DemoServiceImpl implements DemoService{
+public class EnglishServiceImpl implements EnglishService{
 
     /**
      * ユーザーデータテーブル(user_data)へアクセスするマッパー
@@ -21,9 +24,9 @@ public class DemoServiceImpl implements DemoService{
      * {@inheritDoc}
      */
     @Override
-    public DemoForm  demoFormList() {
+    public EnglishForm  demoFormList() {
 
-        DemoForm selectTest = mapper.selectTest();
+        EnglishForm selectTest = mapper.selectTest();
         // DemoForm selectTest = new DemoForm();
         // selectTest.setName("fukazaw !!!");
         return selectTest;

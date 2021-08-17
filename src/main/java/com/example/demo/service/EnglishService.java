@@ -1,13 +1,15 @@
-package com.example.demo;
+package com.example.demo.service;
 // import org.springframework.validation.BindingResult; 
 // import java.util.List;
 
-public interface DemoService {
+import com.example.demo.form.EnglishForm;
+
+public interface EnglishService {
     
     /**
      * ユーザーデータリストを取得
      * @return ユーザーデータリスト
      */
-    DemoForm demoFormList();
+    EnglishForm demoFormList();
     
 }

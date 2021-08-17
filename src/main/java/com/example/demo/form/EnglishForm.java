@@ -1,8 +1,8 @@
-package com.example.demo;
+package com.example.demo.form;
 
 // import com.fasterxml.jackson.databind.annotation.JsonAppend.Prop;
 
-public class DemoForm {
+public class EnglishForm {
 
     public String id;
 
