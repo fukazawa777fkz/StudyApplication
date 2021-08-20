@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
 
-import com.example.demo.form.EnglishForm;
+import java.util.List;
+
+import com.example.demo.form.EngWordForm;
 import com.example.demo.service.EngWordService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +25,7 @@ public class EngWordController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String showHello(Model model) {
 
-        EnglishForm demoFormList = englishService.demoFormList();
+        EngWordForm demoFormList = englishService.demoFormList();
 
         // // INPUTデータ設定
         // CandidateParameterBean param = new CandidateParameterBean();
@@ -37,9 +39,13 @@ public class EngWordController {
         // model.addAttribute("form", form);
         // model.addAttribute("candidateInfo", bean);
 
+        List<EngWordForm> engWordList = englishService.selectEngWordList();
+
         model.addAttribute("result", demoFormList.getName());
         model.addAttribute("title", "Hello いんでっくす!");
         model.addAttribute("message", "ようこそ、ばったん技術ブログへ");
+
+        model.addAttribute("engWordList", engWordList);
         return "index";
     }
 }

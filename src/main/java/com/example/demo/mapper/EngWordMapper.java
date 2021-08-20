@@ -1,10 +1,14 @@
 package com.example.demo.mapper;
 
-import com.example.demo.form.EnglishForm;
+import java.util.List;
+
+import com.example.demo.form.EngWordForm;
 
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface EngWordMapper {
-    EnglishForm selectTest();
+    EngWordForm selectTest();
+    List<EngWordForm> selectEngWordList();
 }
+

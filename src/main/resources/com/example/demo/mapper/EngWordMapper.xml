@@ -6,7 +6,7 @@
         <result column="id" property="id" jdbcType="VARCHAR" />
         <result column="name" property="name" jdbcType="VARCHAR" />
     </resultMap> -->
-    <select id="selectTest" resultType="com.example.demo.form.EnglishForm">
+    <select id="selectTest" resultType="com.example.demo.form.EngWordForm">
     select 
         id
         ,name
@@ -14,4 +14,22 @@
         test_table
     limit 1
     </select>
+
+    <select id="selectEngWordList" resultType="com.example.demo.form.EngWordForm">
+        SELECT
+            ewm.mondai_id,
+            ewm.school_type,
+            ewm.school_year,
+            ewm.word_type,
+            ewm.mondai,
+            ewm.ask,
+            ewm.hint,
+            ewm.gazoPathOK,
+            ewm.gazoPathNG,
+            ewm.dogaUrl,
+            ewm.kaisetu
+        FROM
+            ENG_WORD_MASTER ewm
+    </select>
+
 </mapper>

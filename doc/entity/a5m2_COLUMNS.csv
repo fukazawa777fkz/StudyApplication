@@ -1,0 +1,12 @@
+TABLE_CATALOG,TABLE_SCHEMA,TABLE_NAME,COLUMN_NAME,LOGICAL_NAME,ORDINAL_POSITION,COLUMN_DEFAULT,IS_NULLABLE,DATA_TYPE,KEY_POSITION,DESCRIPTION
+,,eng_word_master,mondai_id,問題ID,1,,NO,@INT,1,
+,,eng_word_master,school_type,学校,2,,YES,@INT,,
+,,eng_word_master,school_year,学年,3,,YES,@INT,,
+,,eng_word_master,word_type,単語タイプ,4,,YES,@INT,,
+,,eng_word_master,mondai,問題,5,,YES,@VARCHAR(255),,
+,,eng_word_master,ask,答え,6,,YES,@VARCHAR(255),,
+,,eng_word_master,hint,ヒント,7,,YES,@VARCHAR(255),,
+,,eng_word_master,gazoPathOK,正解画像パス,8,,YES,@VARCHAR(512),,
+,,eng_word_master,gazoPathNG,不正解画像パス,9,,YES,@VARCHAR(512),,
+,,eng_word_master,dogaUrl,解説動画url,10,,YES,@VARCHAR(512),,
+,,eng_word_master,kaisetu,解説,11,,YES,@VARCHAR(255),,

@@ -1,8 +1,8 @@
 package com.example.demo.service;
 // import org.springframework.validation.BindingResult; 
-// import java.util.List;
+import java.util.List;
 
-import com.example.demo.form.EnglishForm;
+import com.example.demo.form.EngWordForm;
 
 public interface EngWordService {
     
@@ -10,6 +10,12 @@ public interface EngWordService {
      * ユーザーデータリストを取得
      * @return ユーザーデータリスト
      */
-    EnglishForm demoFormList();
+    EngWordForm demoFormList();
     
+    /**
+     * 英単語リストを取得
+     * @return 英単語リスト
+     */
+    public List<EngWordForm> selectEngWordList();
+
 }
