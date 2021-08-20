@@ -12,7 +12,7 @@ import com.example.demo.form.EnglishForm;
 import com.example.demo.mapper.UserDataMapper;
 
 @Service
-public class EnglishServiceImpl implements EnglishService{
+public class EngWordServiceImpl implements EngWordService{
 
     /**
      * ユーザーデータテーブル(user_data)へアクセスするマッパー

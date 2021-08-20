@@ -4,7 +4,7 @@ package com.example.demo.service;
 
 import com.example.demo.form.EnglishForm;
 
-public interface EnglishService {
+public interface EngWordService {
     
     /**
      * ユーザーデータリストを取得
