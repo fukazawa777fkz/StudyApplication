@@ -25,10 +25,12 @@ layout:decorate="~{layouts/layout}">
 
 <head>
     <title>ホーム</title>
+    <link rel="stylesheet" th:href="@{/css/study.css}">
+    <!-- <header style="background-image:url(../static/image/coron.jfif)"> -->
 </head>
-
+    <!-- <body style="background-image:url(../image/wallpaper/jell.jfif)"> -->
     <body>
-
+        <!-- <header style="background-image:url(../static/image/coron.jfif)"> -->
         <div layout:fragment="content">
 
 
@@ -38,15 +40,48 @@ layout:decorate="~{layouts/layout}">
                 <!-- <script type="text/javascript" th:src="@{./js/proc.js}"></script> -->
                 <script type="text/javascript" th:src="@{/demo.js}"></script>
                 <script type="text/javascript" th:src="@{/js/proc.js}"></script>
-
+                <!-- <link rel="stylesheet" th:href="sample.css"> -->
                 <!-- <script th:src="${'../js/proc.js'" charset="utf-8"></script> -->
             </div>
             <!-- <script src="./js/proc.js"></script> -->
-            <p>
-                <span th:text="${result}">test</span>
+            <!-- <p>
+                <span th:text="${'こんにちは。' + userData.first_name + 'さん。'}"></span>
             </p>
 
-            
+            <h2 th:text="${'次の単語を英語にして'}" ></h2> -->
+
+
+            <th:block th:each ="engWord, iterStat : ${engWordList}" id="aaa">
+                <div >
+                    <font size="5">
+                        <span style="position:absolute; left:100px;">
+                            <th:block th:text="${'・　' + engWord.ask}" >
+                        </span>
+                        <span style="position:absolute; left:400px;">
+                            <input name="mondai" class="s__inputtext" type="text" style="left:400px;" >
+                            <input type="button" value= "確認" th:onclick="onclickButton([[${engWord}]],[[${userData}]],[[${iterStat.index}]])";>
+                          　<input type="button" name="googleTeacher" value= "google先生" th:onclick="onClickGoogleTeacher([[${engWord}]],[[${userData}]],[[${iterStat.index}]])">
+
+                            <!-- <input type="button" value= "確認" onclick="onclickButton()";> -->
+                        </span>
+                        <br><br>
+                        
+                        <!-- <img name="ansOkImg" th:src="@{/image\stpri\13.jfif}" style="display:none"> -->
+                        <img name="ansOkImg" th:src="${engWord.gazoPathOK}" style="display:none">
+                        <img name="ansNGImg" th:src="@{/image/はずれ.png}" style="display:none">
+                        <div name="ansComment"></div>
+                    </font>
+                </div>
+            </th:block>
+
+            <!-- <div class="s__section">
+                <h3 class="s__ttl">
+                    <span>検討中グループ名称</span>
+                </h3>
+                <input class="s__inputtext" type="text" placeholder="2021/01/31 〇〇現場用" th:field="*{candidateGroupName}">
+            </div>             -->
+
+
             <p>問１　あなたはテレビを買いました。 </p>
             　<input type="text" id="q1">
             　<input type="button" id="a1" value= "確認" onclick="exec1()">

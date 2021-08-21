@@ -10,7 +10,7 @@ public interface EngWordService {
      * ユーザーデータリストを取得
      * @return ユーザーデータリスト
      */
-    EngWordForm demoFormList();
+    public EngWordForm demoFormList();
     
     /**
      * 英単語リストを取得

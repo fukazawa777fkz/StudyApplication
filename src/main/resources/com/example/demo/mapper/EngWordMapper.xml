@@ -30,6 +30,7 @@
             ewm.kaisetu
         FROM
             ENG_WORD_MASTER ewm
+        LIMIT 20
     </select>
 
 </mapper>

@@ -14,4 +14,20 @@
         test_table
     limit 1
     </select>
+
+    <select id="selectUserData" resultType="com.example.demo.form.UserData">
+    SELECT
+        um.user_no,
+        um.user_id,
+        um.password,
+        um.last_name,
+        um.first_name,
+        um.level,
+        um.title_img_path
+    FROM
+        USER_MASTER2 um
+    WHERE
+        um.user_no = #{user_no}
+    </select>    
+
 </mapper>

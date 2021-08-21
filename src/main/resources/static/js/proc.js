@@ -1,3 +1,27 @@
+
+
+
+function onclickButton(engWord,userData,index){
+
+    var elem = document.getElementsByName("mondai")[index];
+    if (elem.value == engWord.mondai){
+        document.getElementsByName("ansComment")[index].innerHTML = "正解だぜ。" + userData.first_name;
+        document.getElementsByName('ansOkImg')[index].style.display = 'inline';
+        document.getElementsByName('ansNGImg')[index].style.display = 'none';
+
+    }else{
+        document.getElementsByName("ansComment")[index].innerHTML = "間違ってるゼ。" + userData.first_name;
+        document.getElementsByName('ansOkImg')[index].style.display = 'none';
+        document.getElementsByName('ansNGImg')[index].style.display = 'inline';
+    }
+}
+
+
+function onClickGoogleTeacher(engWord,userData,index){
+    var googlePath = 'https://translate.google.co.jp/?hl=ja&tab=TT&sl=en&tl=ja&text=';
+    nWin = window.open(googlePath + engWord.mondai, '_blank'); // 新しいタブを開き、ページを表示
+}
+
 function exec1() {
     var elem = document.getElementById("q1");
     var o1 = document.getElementById("o1");
@@ -95,16 +119,12 @@ function exec5() {
 
 function execHint1(){
     var elem = document.getElementById("q1");
-
     // help('https://translate.google.co.jp/?hl=ja&tab=TT&sl=en&tl=ja&text=did%20you%20watch%20tv%3F&op=translate');
     help(elem.value);
 }
 
 
-
 function help(line){
     var googlePath = 'https://translate.google.co.jp/?hl=ja&tab=TT&sl=en&tl=ja&text=';
     nWin = window.open(googlePath + line, '_blank'); // 新しいタブを開き、ページを表示
-
-
 }
