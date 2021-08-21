@@ -19,7 +19,16 @@ function onclickButton(engWord,userData,index){
 
 function onClickGoogleTeacher(engWord,userData,index){
     var googlePath = 'https://translate.google.co.jp/?hl=ja&tab=TT&sl=en&tl=ja&text=';
-    nWin = window.open(googlePath + engWord.mondai, '_blank'); // 新しいタブを開き、ページを表示
+    // nWin = window.open(googlePath + engWord.mondai, '_blank'); // 新しいタブを開き、ページを表示
+    var top = window.innerHeight / 2;
+    var left = window.innerWidth / 2;
+    var WIDTH = window.innerWidth / 2;
+    var HEIGHT = window.innerHeight / 2;;
+    var x = left - (WIDTH / 2);
+    var y = top - (HEIGHT / 2);
+    googleEiyaku = window.open(googlePath + engWord.mondai,null, 'top=' + y + ',left=' + x + ',width=' + WIDTH + ',height=' + HEIGHT );
+    googleEiyaku.focus();
+
 }
 
 function exec1() {

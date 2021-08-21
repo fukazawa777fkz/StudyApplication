@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" charset="utf-8">
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>ログイン</title>
+</head>
+<body>
+
+<form method="get" action="/eng">
+
+    <table align="center">
+        
+        <tr>
+            <td>Who are you?</td>
+            <!-- <td><input type="text" name="userid" maxlength="20" size="20"/></td> -->
+        </tr>
+
+
+        <tr>
+            <td colspan="4">
+            <select name="user_no" >
+                <option value="1">はるな</option>
+                <option value="2">こうき</option>
+                <option value="3">ゆずき</option>
+                <option value="4">ゆうすけ</option>
+            </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="2" align="center"><input type="submit" value="ログイン" /></td>
+        </tr>
+    </table>
+
+</form>
+</body>

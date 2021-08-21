@@ -7,6 +7,7 @@ import com.example.demo.form.EngWordForm;
 import com.example.demo.form.UserData;
 import com.example.demo.service.EngWordService;
 import com.example.demo.service.UserDataService;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,7 +29,15 @@ public class EngWordController {
     private UserDataService userDataService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String showHello(Model model) {
+    public String topPage(Model model) {
+        return "login";
+    }
+
+
+    // @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "/eng", method = RequestMethod.GET)
+    public String showHello( Model model
+                            ,@RequestParam(name = "user_no", required = false) int user_no) {
 
         EngWordForm demoFormList = englishService.demoFormList();
 
@@ -46,7 +55,6 @@ public class EngWordController {
 
         List<EngWordForm> engWordList = englishService.selectEngWordList();
 
-        int user_no = 1;
         UserData userData = userDataService.selectUserData(user_no);
 
         model.addAttribute("result", demoFormList.getName());
