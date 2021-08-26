@@ -23,7 +23,10 @@
         um.last_name,
         um.first_name,
         um.level,
-        um.title_img_path
+        um.title_img_path,
+        um.school_class,
+        um.school_type,
+        um.school_year
     FROM
         USER_MASTER2 um
     WHERE

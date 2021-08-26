@@ -2,6 +2,7 @@ package com.example.demo.service;
 // import org.springframework.validation.BindingResult; 
 import java.util.List;
 
+import com.example.demo.bean.paramaterBean.EngWordParamaterBean;
 import com.example.demo.form.EngWordForm;
 
 public interface EngWordService {
@@ -14,8 +15,9 @@ public interface EngWordService {
     
     /**
      * 英単語リストを取得
+     * @param param
      * @return 英単語リスト
      */
-    public List<EngWordForm> selectEngWordList();
+    public List<EngWordForm> selectEngWordList(EngWordParamaterBean param);
 
 }

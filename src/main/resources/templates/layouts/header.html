@@ -5,18 +5,27 @@
 <body>
     <nav class="navbar navbar-default" layout:fragment="header">
         
-        <span>
+        <div id="headerArea">
+        
+
+        <table>
+
+            <tr>
+
             <!-- <th:block th:if="${userData.user_no == 1}">
                 <img src="/image/wallpaper/jell.jfif">
             </th:block> -->
-
+            <th>
             <img th:src="${userData.title_img_path}">
-
+            </th>
+            <th valign="center">
             <font size="10"> 
                 <!-- <a class="navbar-brand" href="/">ストブリ英会話</a> -->
                 <span th:text="${'問題だぜ。' + userData.first_name + '。'}"></span>
             </font>
-        </span>
+            </th>
+        </tr>
+        </table>
         <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navigation">
@@ -39,6 +48,8 @@
                 <!-- <p class="navbar-text navbar-right" th:text = "${ 'ログインユーザー：' + userData.first_name }" ></p> -->
             </div>
         </div>
+    </div>
+
     </nav>
 </body>
 </html>

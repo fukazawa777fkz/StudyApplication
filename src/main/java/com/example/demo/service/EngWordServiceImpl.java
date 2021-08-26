@@ -4,6 +4,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import com.example.demo.bean.paramaterBean.EngWordParamaterBean;
+
 // import scala.collection.immutable.List;
 
 import com.example.demo.form.EngWordForm;
@@ -35,8 +37,12 @@ public class EngWordServiceImpl implements EngWordService{
      * {@inheritDoc}
      */
     @Override
-    public List<EngWordForm> selectEngWordList() {
-        List<EngWordForm> engWordList = engWordMapper.selectEngWordList();
+    public List<EngWordForm> selectEngWordList(EngWordParamaterBean param) {
+        
+        int schoolType = param.getSchoolType();
+        int schoolYear = param.getSchoolYear();
+        int wordType = param.getWordType();
+        List<EngWordForm> engWordList = engWordMapper.selectEngWordList(schoolType,schoolYear,wordType);
         return engWordList;
     }
 }

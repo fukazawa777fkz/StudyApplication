@@ -36,6 +36,10 @@ public class EngWordForm {
     public String gazoPathNG;
     public String dogaUrl;
     public String kaisetu;
+    public String touan;
+    public String googleTeacher;
+    public String ok_comment;
+    public String ng_comment;
 
     public int getMondai_id() {
         return this.mondai_id;
@@ -124,5 +128,37 @@ public class EngWordForm {
     public void setKaisetu(String kaisetu) {
         this.kaisetu = kaisetu;
     }
+
+    public String getTouan() {
+        return this.touan;
+    }
+
+    public void setTouan(String touan) {
+        this.touan = touan;
+    }
+
+    public String getGoogleTeacher() {
+        return this.googleTeacher;
+    }
+
+    public void setGoogleTeacher(String googleTeacher) {
+        this.googleTeacher = googleTeacher;
+    }
+
+    public String getOk_comment() {
+        return this.ok_comment;
+    }
+
+    public void setOk_comment(String ok_comment) {
+        this.ok_comment = ok_comment;
+    }
+
+    public String getNg_comment() {
+        return this.ng_comment;
+    }
+
+    public void setNg_comment(String ng_comment) {
+        this.ng_comment = ng_comment;
+    }    
     
 }

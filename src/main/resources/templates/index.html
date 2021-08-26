@@ -20,8 +20,7 @@
 <!DOCTYPE html>
 <html
 xmlns:th="http://www.thymeleaf.org"
-xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-layout:decorate="~{layouts/layout}">
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
 
 <head>
     <title>ホーム</title>
@@ -50,29 +49,63 @@ layout:decorate="~{layouts/layout}">
 
             <h2 th:text="${'次の単語を英語にして'}" ></h2> -->
 
+        <form id="frmEngWord" th:object="${form}" class="">
 
+        <!-- <select th:field="${userData.}" onchange="" > -->
+        <select id="selectschoolType" name="selectschoolType">
+            <option th:each="item : ${scoolTypeMap}" th:value="${item.key}"  th:text="${item.value}" th:selected="${item.key == selectedSchoolType}" ></option>
+        </select>
+
+        <select id="selectschoolYear" name="selectschoolYear" >
+            <option th:each="item : ${schoolYearMap}" th:value="${item.key}"  th:text="${item.value}" th:selected="${item.key == selectedSchoolYear}" ></option>
+        </select>
+
+        <select id="selectWordType" name="selectWordType">
+            <option th:each="item : ${engWordTypeMap}" th:value="${item.key}"  th:text="${item.value}" th:selected="${item.key == selectedEngWordType}" ></option>
+        </select>
+
+        <input type="button" value="設定" th:onclick="formSubmit(this,this.form, [[${userData.user_no}]])" >
+
+        <div id="mainArea">
+            <table border="0.7" cellspacing="0" bordercolor="#333333" >
             <th:block th:each ="engWord, iterStat : ${engWordList}" id="aaa">
                 <div >
-                    <font size="5">
-                        <span style="position:absolute; left:100px;">
-                            <th:block th:text="${'・　' + engWord.ask}" >
-                        </span>
-                        <span style="position:absolute; left:400px;">
-                            <input name="mondai" class="s__inputtext" type="text" style="left:400px;" >
-                            <input type="button" value= "確認" th:onclick="onclickButton([[${engWord}]],[[${userData}]],[[${iterStat.index}]])";>
-                          　<input type="button" name="googleTeacher" value= "google先生" th:onclick="onClickGoogleTeacher([[${engWord}]],[[${userData}]],[[${iterStat.index}]])">
+                    <!-- <font size="5"> -->
+                        <!-- <input type="hidden" th:field="${engWordList[__${iterStat.index}__].touan} ">
+                        <input type="hidden" th:field="${engWordList[__${iterStat.index}__].googleTeacher} "> -->
+                        <!-- <input type="hidden" th:field="${engWord.touan}"> -->
+                        <!-- <input type="hidden" th:field="${engWord.googleTeacher}"> -->
 
-                            <!-- <input type="button" value= "確認" onclick="onclickButton()";> -->
-                        </span>
-                        <br><br>
-                        
-                        <!-- <img name="ansOkImg" th:src="@{/image\stpri\13.jfif}" style="display:none"> -->
-                        <img name="ansOkImg" th:src="${engWord.gazoPathOK}" style="display:none">
-                        <img name="ansNGImg" th:src="@{/image/はずれ.png}" style="display:none">
-                        <div name="ansComment"></div>
-                    </font>
-                </div>
-            </th:block>
+                            <TR >
+                                <th valign="top">
+                                    <th:block th:text="${engWord.ask}" width="200pt" >
+                                </th>
+                                <th valign="top">
+                                    <input name="mondai" class="s__inputtext" type="text" style="left:400px;" >
+                                </th>
+                                <th valign="top">
+                                    <input type="button" value= "確認" th:onclick="onclickButton([[${engWord}]],[[${userData}]],[[${iterStat.index}]])";>
+                                </th>
+                                <th valign="top">
+                                    <input type="button" name="googleTeacher" value= "google先生" th:onclick="onClickGoogleTeacher([[${engWord}]],[[${userData}]],[[${iterStat.index}]])">
+                                </th>
+
+                                
+                                <!-- <input type="button" value= "確認" onclick="onclickButton()";> -->
+                                <!-- <br><br> -->
+                                <!-- <img name="ansOkImg" th:src="@{/image\stpri\13.jfif}" style="display:none"> -->
+                                <th>
+                                    <img name="ansOkImg" th:src="${engWord.gazoPathOK}" style="display:none">
+                                    <img name="ansNGImg" th:src="@{/image/はずれ.png}" style="display:none">
+                                    <br/>
+                                    <div name="ansComment"></div>
+                                </th>
+                            </TR>
+                        <!-- </font> -->
+                    </div>
+                </th:block>
+            </TABLE>
+            </div>
 
             <!-- <div class="s__section">
                 <h3 class="s__ttl">
@@ -127,6 +160,7 @@ layout:decorate="~{layouts/layout}">
                     <img id="img1hazure5" th:src="@{/image/はずれ.png}" style="display:none">
                     <div id="o5"></div>
                 </div>
+        </form>
         </div>
      </body>
     

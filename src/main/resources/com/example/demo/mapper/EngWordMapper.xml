@@ -27,9 +27,15 @@
             ewm.gazoPathOK,
             ewm.gazoPathNG,
             ewm.dogaUrl,
-            ewm.kaisetu
+            ewm.kaisetu,
+            ewm.ok_comment,
+            ewm.ng_comment
         FROM
             ENG_WORD_MASTER ewm
+        WhERE
+            ewm.school_type = #{schoolType}     -- 小中高
+            AND ewm.school_year = #{schoolYear}     -- 学年
+            AND ewm.word_type = #{wordType}        -- 単語の種類
         LIMIT 20
     </select>
 

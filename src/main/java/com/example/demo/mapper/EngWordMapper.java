@@ -9,6 +9,6 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface EngWordMapper {
     EngWordForm selectTest();
-    List<EngWordForm> selectEngWordList();
+    List<EngWordForm> selectEngWordList(int schoolType, int schoolYear, int wordType);
 }
 

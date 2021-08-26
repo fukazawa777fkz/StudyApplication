@@ -3,3 +3,23 @@ header {
 	/* position: relative;
 	background: url(../image/wallpaper/jell.jfif) center; */
 }
+
+
+#mainArea {
+    width: auto;
+    margin-bottom: 18px;
+    margin-left: 60px;
+    /* padding:2px; */
+    /* border : solid 1px; */
+    text-align: left;
+	/* vertical-align: top; */
+}
+
+
+#headerArea {
+background-color: #cae4ff;
+}
+
+#mainArea img {
+    width: 60%;
+}

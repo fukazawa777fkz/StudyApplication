@@ -5,15 +5,27 @@ function onclickButton(engWord,userData,index){
 
     var elem = document.getElementsByName("mondai")[index];
     if (elem.value == engWord.mondai){
-        document.getElementsByName("ansComment")[index].innerHTML = "正解だぜ。" + userData.first_name;
+        if (engWord.ok_comment == null){
+            document.getElementsByName("ansComment")[index].innerHTML = "正解だぜ。" + userData.first_name;
+        }
+        else{
+            document.getElementsByName("ansComment")[index].innerHTML = engWord.ok_comment + userData.first_name;
+        }
         document.getElementsByName('ansOkImg')[index].style.display = 'inline';
         document.getElementsByName('ansNGImg')[index].style.display = 'none';
 
     }else{
-        document.getElementsByName("ansComment")[index].innerHTML = "間違ってるゼ。" + userData.first_name;
+        if (engWord.ng_comment == null){
+            document.getElementsByName("ansComment")[index].innerHTML = "間違ってるゼ。" + userData.first_name;
+        }
+        else{
+            document.getElementsByName("ansComment")[index].innerHTML = engWord.ng_comment + userData.first_name;
+        }
         document.getElementsByName('ansOkImg')[index].style.display = 'none';
         document.getElementsByName('ansNGImg')[index].style.display = 'inline';
     }
+
+    
 }
 
 
@@ -136,4 +148,20 @@ function execHint1(){
 function help(line){
     var googlePath = 'https://translate.google.co.jp/?hl=ja&tab=TT&sl=en&tl=ja&text=';
     nWin = window.open(googlePath + line, '_blank'); // 新しいタブを開き、ページを表示
+}
+
+
+function formSubmit(button,form, user_no) {
+
+    var baseAction = "/eng";
+	var selectWordType  = document.getElementById('selectWordType').selectedIndex;
+    var selectSchoolType =   document.getElementById('selectschoolType').selectedIndex;
+    var selectSchoolYear =   document.getElementById('selectschoolYear').selectedIndex;
+    baseAction = baseAction + '?user_no=' + user_no;
+    baseAction = baseAction + '&engWordType=' + selectWordType;
+    baseAction = baseAction + '&schoolType=' + selectSchoolType;
+    baseAction = baseAction + '&schoolYear=' + selectSchoolYear;
+
+    form.method = "get"
+    location.href = baseAction;
 }
