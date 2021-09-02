@@ -18,5 +18,9 @@ public class UserDataServiceImpl implements UserDataService{
     public UserData selectUserData(int user_no){
         return mapper.selectUserData(user_no);
     }
-
+    
+    @Override
+    public int updateUseEngWord(int word_type, int user_no){
+        return mapper.updateUseEngWord(word_type, user_no);
+    }
 }

@@ -30,12 +30,21 @@
             ewm.kaisetu,
             ewm.ok_comment,
             ewm.ng_comment
-        FROM
-            ENG_WORD_MASTER ewm
+        FROM ENG_WORD_MASTER ewm
+        LEFT OUTER JOIN seiseki_tbl st
+            ON ewm.mondai_id = st.mondai_id
+        LEFT OUTER JOIN user_master2 um
+            ON st.user_no = um.user_no 
+            AND um.user_no = 1  
         WhERE
-            ewm.school_type = #{schoolType}     -- 小中高
-            AND ewm.school_year = #{schoolYear}     -- 学年
-            AND ewm.word_type = #{wordType}        -- 単語の種類
+            ewm.school_type = #{schoolType}           -- 小中高
+            <if test="schoolYear != 0">
+                AND ewm.school_year = #{schoolYear}   -- 学年
+            </if>
+            <if test="wordType != 0">
+                AND ewm.word_type = #{wordType}
+            </if>
+            AND st.OK_count is null
         LIMIT 20
     </select>
 

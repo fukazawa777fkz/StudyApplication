@@ -11,6 +11,7 @@ public class UserData {
     private int school_class;
     private int school_type;
     private int school_year;
+    private int word_type;
 
     public int getUser_no() {
         return this.user_no;
@@ -90,5 +91,13 @@ public class UserData {
 
     public void setSchool_year(int school_year) {
         this.school_year = school_year;
+    }
+
+    public int getWord_type() {
+        return this.word_type;
+    }
+
+    public void setWord_type(int word_type) {
+        this.word_type = word_type;
     }
 }

@@ -26,11 +26,23 @@
         um.title_img_path,
         um.school_class,
         um.school_type,
-        um.school_year
+        um.school_year,
+        um.word_type
     FROM
         USER_MASTER2 um
     WHERE
         um.user_no = #{user_no}
-    </select>    
+    </select>
+
+    <!-- **********************-->
+    <!-- Update                -->
+    <!-- **********************-->
+    <update id="updateUseEngWord">
+        UPDATE user_master2
+          SET 
+            word_type = #{word_type}
+          WHERE 
+            user_no = #{user_no}
+    </update>
 
 </mapper>

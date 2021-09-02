@@ -1,10 +1,20 @@
+function formSubmit(button,form, user_no) {
+    var baseAction = "/eng";
+	var selectWordType  = document.getElementById('selectWordType').selectedIndex;
+    var selectSchoolType =   document.getElementById('selectschoolType').selectedIndex;
+    var selectSchoolYear =   document.getElementById('selectschoolYear').selectedIndex;
+    baseAction = baseAction + '?user_no=' + user_no;
+    baseAction = baseAction + '&engWordType=' + selectWordType;
+    baseAction = baseAction + '&schoolType=' + selectSchoolType;
+    baseAction = baseAction + '&schoolYear=' + selectSchoolYear;
 
+    form.method = "get"
+    location.href = baseAction;
+}
 
-
-function onclickButton(engWord,userData,index){
-
+function onclickButton(form,engWord,userData,index){
     var elem = document.getElementsByName("mondai")[index];
-    if (elem.value == engWord.mondai){
+    if (elem.value.toLowerCase() == engWord.mondai.toLowerCase()){
         if (engWord.ok_comment == null){
             document.getElementsByName("ansComment")[index].innerHTML = "正解だぜ。" + userData.first_name;
         }
@@ -13,6 +23,7 @@ function onclickButton(engWord,userData,index){
         }
         document.getElementsByName('ansOkImg')[index].style.display = 'inline';
         document.getElementsByName('ansNGImg')[index].style.display = 'none';
+        resultCommit(form,engWord,userData,1);
 
     }else{
         if (engWord.ng_comment == null){
@@ -23,12 +34,49 @@ function onclickButton(engWord,userData,index){
         }
         document.getElementsByName('ansOkImg')[index].style.display = 'none';
         document.getElementsByName('ansNGImg')[index].style.display = 'inline';
+        resultCommit(form,engWord,userData,0);
     }
-
-    
 }
 
+function resultCommit(form,engWord,userData,judgResult) {
 
+    var data = new FormData(form);
+    $.ajax({
+     url: "/eng/resultCommit/" + userData.user_no + "/" + engWord.mondai_id + "/" + judgResult ,
+     method: "POST",
+      dataType: "json",
+      data: data,
+      processData: false,
+      contentType: false
+    }).then(function(result) {
+        // var cls = $('[data-id=' + candidateShohinNo + '-' + candidateOptionShohinNo + '-' + columnId + ']');
+        // if ("hasError" == result) {
+        //   cls.show();
+        // } else if ("" != result) {
+        //   cls.html(result);
+        //   cls.show();
+        // } else {
+        //   cls.hide();
+        // }
+    });
+
+}
+
+function updateEngWordInfo(form,userData) {
+
+	var selectWordType  = document.getElementById('selectWordType').selectedIndex;
+    var data = new FormData(form);
+    $.ajax({
+     url: "/eng/resultCommit/" + userData.user_no + "/" + selectWordType,
+     method: "POST",
+      dataType: "json",
+      data: data,
+      processData: false,
+      contentType: false
+    }).then(function(result) {
+    });
+
+}
 function onClickGoogleTeacher(engWord,userData,index){
     var googlePath = 'https://translate.google.co.jp/?hl=ja&tab=TT&sl=en&tl=ja&text=';
     // nWin = window.open(googlePath + engWord.mondai, '_blank'); // 新しいタブを開き、ページを表示
@@ -43,18 +91,18 @@ function onClickGoogleTeacher(engWord,userData,index){
 
 }
 
+
+
 function exec1() {
     var elem = document.getElementById("q1");
     var o1 = document.getElementById("o1");
     // var now = new Date();
     // var hour = now.getHours();
     // var min = now.getMinutes();
-
     if ((elem.value == "You bought a TV.") || (elem.value == "You bought a tv.")){
         o1.innerHTML = "正解だぜ。はるな。";
         document.getElementById('img1').style.display = 'inline';
         document.getElementById('img1hazure1').style.display = 'none';
-
     }else{
         o1.innerHTML = "はずれだぜ。はるな。";
         document.getElementById('img1').style.display = 'none';
@@ -68,7 +116,6 @@ function exec2() {
     // var now = new Date();
     // var hour = now.getHours();
     // var min = now.getMinutes();
-
     if ((elem.value == "Did you buy a TV?") || (elem.value == "Did you buy a tv?")){
         o2.innerHTML = "正解だぜ。はるな。";
         document.getElementById('img2').style.display = 'inline';
@@ -148,20 +195,4 @@ function execHint1(){
 function help(line){
     var googlePath = 'https://translate.google.co.jp/?hl=ja&tab=TT&sl=en&tl=ja&text=';
     nWin = window.open(googlePath + line, '_blank'); // 新しいタブを開き、ページを表示
-}
-
-
-function formSubmit(button,form, user_no) {
-
-    var baseAction = "/eng";
-	var selectWordType  = document.getElementById('selectWordType').selectedIndex;
-    var selectSchoolType =   document.getElementById('selectschoolType').selectedIndex;
-    var selectSchoolYear =   document.getElementById('selectschoolYear').selectedIndex;
-    baseAction = baseAction + '?user_no=' + user_no;
-    baseAction = baseAction + '&engWordType=' + selectWordType;
-    baseAction = baseAction + '&schoolType=' + selectSchoolType;
-    baseAction = baseAction + '&schoolYear=' + selectSchoolYear;
-
-    form.method = "get"
-    location.href = baseAction;
 }

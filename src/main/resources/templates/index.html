@@ -36,6 +36,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layo
         <!-- 画面固有のjs -->
 
             <div layout:fragment="script_js">
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
                 <!-- <script type="text/javascript" th:src="@{./js/proc.js}"></script> -->
                 <script type="text/javascript" th:src="@{/demo.js}"></script>
                 <script type="text/javascript" th:src="@{/js/proc.js}"></script>
@@ -50,18 +51,23 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layo
             <h2 th:text="${'次の単語を英語にして'}" ></h2> -->
 
         <form id="frmEngWord" th:object="${form}" class="">
-
+        　職業
         <!-- <select th:field="${userData.}" onchange="" > -->
         <select id="selectschoolType" name="selectschoolType">
             <option th:each="item : ${scoolTypeMap}" th:value="${item.key}"  th:text="${item.value}" th:selected="${item.key == selectedSchoolType}" ></option>
         </select>
-
+        　学年
         <select id="selectschoolYear" name="selectschoolYear" >
             <option th:each="item : ${schoolYearMap}" th:value="${item.key}"  th:text="${item.value}" th:selected="${item.key == selectedSchoolYear}" ></option>
         </select>
-
+        　単語
         <select id="selectWordType" name="selectWordType">
             <option th:each="item : ${engWordTypeMap}" th:value="${item.key}"  th:text="${item.value}" th:selected="${item.key == selectedEngWordType}" ></option>
+        </select>
+
+        　表示
+        <select id="selectViewType" name="selectViewType">
+            <option th:each="item : ${viewTypeMap}" th:value="${item.key}"  th:text="${item.value}" th:selected="${item.key == selectedViewType}" ></option>
         </select>
 
         <input type="button" value="設定" th:onclick="formSubmit(this,this.form, [[${userData.user_no}]])" >
@@ -84,7 +90,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layo
                                     <input name="mondai" class="s__inputtext" type="text" style="left:400px;" >
                                 </th>
                                 <th valign="top">
-                                    <input type="button" value= "確認" th:onclick="onclickButton([[${engWord}]],[[${userData}]],[[${iterStat.index}]])";>
+                                    <input type="button" value= "確認" th:onclick="onclickButton(form,[[${engWord}]],[[${userData}]],[[${iterStat.index}]])";>
                                 </th>
                                 <th valign="top">
                                     <input type="button" name="googleTeacher" value= "google先生" th:onclick="onClickGoogleTeacher([[${engWord}]],[[${userData}]],[[${iterStat.index}]])">

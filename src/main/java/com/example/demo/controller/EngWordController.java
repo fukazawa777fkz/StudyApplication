@@ -1,23 +1,28 @@
 package com.example.demo.controller;
 
-import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.example.demo.bean.paramaterBean.EngWordParamaterBean;
+import com.example.demo.entity.SeisekiTbl;
 import com.example.demo.form.EngWordForm;
 import com.example.demo.form.UserData;
 import com.example.demo.service.EngWordService;
 import com.example.demo.service.UserDataService;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class EngWordController {
@@ -44,8 +49,25 @@ public class EngWordController {
                             ,@RequestParam(name = "schoolYear", required = false) int schoolYear
                             ,@RequestParam(name = "engWordType", required = false) int engWordType
                             ) {
-        EngWordParamaterBean param = new EngWordParamaterBean();
 
+        // ***************************
+        // * ユーザーデータを取得
+        // ***************************
+        UserData userData = userDataService.selectUserData(user_no);
+        if(schoolType == 0){
+            schoolType = userData.getSchool_type();
+        }
+        if(schoolYear == 0){
+            schoolYear = userData.getSchool_year();
+        }
+        if (engWordType != 0 ){
+            userDataService.updateUseEngWord(engWordType, user_no);
+        }
+
+        // ***************************
+        // * 英単語取得
+        // ***************************
+        EngWordParamaterBean param = new EngWordParamaterBean();
         param.setSchoolType(schoolType);
         param.setSchoolYear(schoolYear);
         param.setWordType(engWordType);
@@ -53,17 +75,6 @@ public class EngWordController {
 
         List<EngWordForm> engWordList = englishService.selectEngWordList(param);
 
-        UserData userData = userDataService.selectUserData(user_no);
-
-        if(schoolType == -1){
-            schoolType = userData.getSchool_type();
-        }
-        if(schoolYear == -1){
-            schoolYear = userData.getSchool_year();
-        }
-        if(engWordType == -1){
-            engWordType = 0;
-        }
 
         model.addAttribute("result", demoFormList.getName());
         model.addAttribute("userData",userData);
@@ -86,9 +97,11 @@ public class EngWordController {
         schoolYearMap.put(1 , "1年");
         schoolYearMap.put(2 , "2年");
         schoolYearMap.put(3 , "3年");
-        schoolYearMap.put(4 , "4年");
-        schoolYearMap.put(5 , "5年");
-        schoolYearMap.put(6 , "6年");
+        if (schoolType <2 ){
+            schoolYearMap.put(4 , "4年");
+            schoolYearMap.put(5 , "5年");
+            schoolYearMap.put(6 , "6年");
+        }
         model.addAttribute("schoolYearMap", schoolYearMap);
         model.addAttribute("selectedSchoolYear", schoolYear);        
 
@@ -103,8 +116,17 @@ public class EngWordController {
         engWordTypeMap.put(7,"副詞");
         engWordTypeMap.put(8,"代名詞");
         model.addAttribute("engWordTypeMap", engWordTypeMap);
+        if (engWordType == 0){
+            engWordType = userData.getWord_type();
+        }
         model.addAttribute("selectedEngWordType", engWordType);        
 
+        Map<Integer, String> viewTypeMap = new LinkedHashMap<Integer, String>();
+        viewTypeMap.put(null ,"選択してください");
+        viewTypeMap.put(1,"正解した奴。");
+        viewTypeMap.put(2,"不正解した奴");
+        viewTypeMap.put(15,"正解率50%は出さない");
+        model.addAttribute("viewTypeMap", viewTypeMap);
 
         return "index";
 
@@ -113,4 +135,58 @@ public class EngWordController {
         // param.setProcessKb(CandidateProcessKb.GROUP_INIT_INDEX);
         // param.setUserInfo(super.getUserInfo());
     }
+
+    @PostMapping(value = "/eng/resultCommit/{user_no}/{mondai_id}/{judgResult}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public Map<String, Object> resultCommit(
+            @ModelAttribute("form") @Validated EngWordForm form,
+            @PathVariable("user_no") int user_no,
+            @PathVariable("mondai_id") int mondai_id,
+            @PathVariable("judgResult") int judgResult,
+            Model model
+    ) {
+
+        SeisekiTbl selectSeisekiTbl = englishService.selectSeisekiTbl(user_no, mondai_id);
+    
+        EngWordParamaterBean param = new EngWordParamaterBean();
+        param.setUser_no(user_no);
+        param.setMondai_id(mondai_id);
+        if (selectSeisekiTbl == null){
+            englishService.insertSeisekiTbl(param);
+            if (judgResult == 1){
+                param.setOK_count(1);
+                param.setNG_count(0);
+            }else{
+                param.setOK_count(0);
+                param.setNG_count(1);
+            }
+        }
+        else{
+            if (judgResult == 1){
+                param.setOK_count(selectSeisekiTbl.getOK_count() + 1);
+                param.setNG_count(selectSeisekiTbl.getNG_count());
+            }else{
+                param.setOK_count(selectSeisekiTbl.getOK_count());
+                param.setNG_count(selectSeisekiTbl.getNG_count() + 1);
+            }
+        }
+        englishService.updateSeisekiTbl(param);
+
+        return null;
+    }    
+
+
+    @PostMapping(value = "/eng/updateEngWordInfo/{user_no}/{word_type}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public Map<String, Object> updateEngWordInfo(
+            @ModelAttribute("form") @Validated EngWordForm form,
+            @PathVariable("user_no") int user_no,
+            @PathVariable("word_type") int word_type,
+            Model model
+    ) {
+        userDataService.updateUseEngWord(form.getWord_type(), user_no);
+        return null;
+    }    
+
+
 }

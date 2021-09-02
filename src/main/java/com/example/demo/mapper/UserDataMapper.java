@@ -11,7 +11,6 @@ public interface UserDataMapper {
     EngWordForm selectTest();
 
     UserData selectUserData(int user_no);
-    
-
+    int updateUseEngWord(int word_type, int user_no);
    
 }

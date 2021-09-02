@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.SeisekiTblMapper">
+    
+
+    <!-- **********************-->
+    <!-- Insert                -->
+    <!-- **********************-->
+    <insert id="insertSeisekiTbl">
+        INSERT INTO seiseki_tbl (user_no,mondai_id) VALUES (#{user_no},#{mondai_id});
+    </insert>
+
+    <!-- **********************-->
+    <!-- Update                -->
+    <!-- **********************-->
+    <update id="updateSeisekiTbl">
+        UPDATE seiseki_tbl 
+          SET 
+            NG_count = #{NG_count}, 
+            OK_count = #{OK_count} 
+          WHERE 
+            user_no       = #{user_no} 
+            AND mondai_id = #{mondai_id} 
+    </update>
+    
+    <!-- **********************-->
+    <!-- 成績データ取得         -->
+    <!-- param1 : #{user_no}   -->
+    <!-- param2 : #{mondai_id} -->
+    <!-- **********************-->
+    <select id="selectSeisekiTbl" resultType="com.example.demo.entity.SeisekiTbl">
+    SELECT
+        *
+    FROM
+        seiseki_tbl sTbl
+    WhERE
+        sTbl.user_no       = #{user_no}
+        AND sTbl.mondai_id = #{mondai_id}
+    </select>
+
+</mapper>
