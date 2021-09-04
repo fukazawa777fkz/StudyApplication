@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.example.demo.bean.paramaterBean.EngWordParamaterBean;
-import com.example.demo.entity.SeisekiTbl;
-import com.example.demo.form.EngWordForm;
-import com.example.demo.form.UserData;
+import com.example.demo.entity.*;
+import com.example.demo.form.*;
+import com.example.demo.service.DogaService;
 import com.example.demo.service.EngWordService;
 import com.example.demo.service.UserDataService;
 
@@ -36,6 +36,9 @@ public class EngWordController {
     @Autowired
     private UserDataService userDataService;
 
+    @Autowired
+    private DogaService dogaService;
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String topPage(Model model) {
         return "login";
@@ -60,9 +63,9 @@ public class EngWordController {
         if(schoolYear == 0){
             schoolYear = userData.getSchool_year();
         }
-        if (engWordType != 0 ){
+        // if (engWordType != 0 ){
             userDataService.updateUseEngWord(engWordType, user_no);
-        }
+        // }
 
         // ***************************
         // * 英単語取得
@@ -93,7 +96,7 @@ public class EngWordController {
 
 
         Map<Integer, String> schoolYearMap = new LinkedHashMap<Integer, String>();
-        schoolYearMap.put(null ,"選択してください");
+        schoolYearMap.put(0 ,"全学年");
         schoolYearMap.put(1 , "1年");
         schoolYearMap.put(2 , "2年");
         schoolYearMap.put(3 , "3年");
@@ -106,7 +109,7 @@ public class EngWordController {
         model.addAttribute("selectedSchoolYear", schoolYear);        
 
         Map<Integer, String> engWordTypeMap = new LinkedHashMap<Integer, String>();
-        engWordTypeMap.put(null ,"選択してください");
+        engWordTypeMap.put(0 ,"ランダム");
         engWordTypeMap.put(1,"名刺");
         engWordTypeMap.put(2,"動詞");
         engWordTypeMap.put(3,"形容詞・副詞");
@@ -116,17 +119,21 @@ public class EngWordController {
         engWordTypeMap.put(7,"副詞");
         engWordTypeMap.put(8,"代名詞");
         model.addAttribute("engWordTypeMap", engWordTypeMap);
-        if (engWordType == 0){
-            engWordType = userData.getWord_type();
-        }
+        // if (engWordType == 0){
+        //     engWordType = userData.getWord_type();
+        // }
         model.addAttribute("selectedEngWordType", engWordType);        
 
         Map<Integer, String> viewTypeMap = new LinkedHashMap<Integer, String>();
-        viewTypeMap.put(null ,"選択してください");
+        viewTypeMap.put(0 ,"選択してください");
         viewTypeMap.put(1,"正解した奴。");
         viewTypeMap.put(2,"不正解した奴");
         viewTypeMap.put(15,"正解率50%は出さない");
         model.addAttribute("viewTypeMap", viewTypeMap);
+
+
+        DogaData dogaData = dogaService.selectYoutubeUrl(user_no);
+        model.addAttribute("dogaData", dogaData);
 
         return "index";
 

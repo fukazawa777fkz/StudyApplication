@@ -4,13 +4,6 @@
     <meta charset="UTF-8">
     <title>いんでっくす!!!</title>
         <script src="../js/proc.js"></script>
-
-
-
-
-
-
-    
 </head>
 <body>
     <h1>いんでっくすあああ</h1>
@@ -23,153 +16,78 @@ xmlns:th="http://www.thymeleaf.org"
 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
 
 <head>
-    <title>ホーム</title>
-    <link rel="stylesheet" th:href="@{/css/study.css}">
-    <!-- <header style="background-image:url(../static/image/coron.jfif)"> -->
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>ホーム</title>
+	<link rel="stylesheet" th:href="@{/css/study.css}">
+	<!-- <header style="background-image:url(../static/image/coron.jfif)"> -->
 </head>
     <!-- <body style="background-image:url(../image/wallpaper/jell.jfif)"> -->
-    <body>
-        <!-- <header style="background-image:url(../static/image/coron.jfif)"> -->
-        <div layout:fragment="content">
+	<body>
+		<!-- <header style="background-image:url(../static/image/coron.jfif)"> -->
+		<div layout:fragment="content">
+		<!-- 画面固有のjs -->
+		<div layout:fragment="script_js">
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+			<!-- <script type="text/javascript" th:src="@{./js/proc.js}"></script> -->
+			<script type="text/javascript" th:src="@{/demo.js}"></script>
+			<script type="text/javascript" th:src="@{/js/proc.js}"></script>
+			<!-- <link rel="stylesheet" th:href="sample.css"> -->
+			<!-- <script th:src="${'../js/proc.js'" charset="utf-8"></script> -->
+		</div>
+
+		<form id="frmEngWord" th:object="${form}" class="">
+			<audio id="seikai" src="mp3/seikai.mp3" controls hidden> </audio>
+			
+				　職業
+			<select id="selectschoolType" name="selectschoolType">
+				<option th:each="item : ${scoolTypeMap}" th:value="${item.key}"  th:text="${item.value}" th:selected="${item.key == selectedSchoolType}" ></option>
+			</select>
+			<br/>　学年
+			<select id="selectschoolYear" name="selectschoolYear" >
+				<option th:each="item : ${schoolYearMap}" th:value="${item.key}"  th:text="${item.value}" th:selected="${item.key == selectedSchoolYear}" ></option>
+			</select>
+			<br/>　単語
+			<select id="selectWordType" name="selectWordType">
+				<option th:each="item : ${engWordTypeMap}" th:value="${item.key}"  th:text="${item.value}" th:selected="${item.key == selectedEngWordType}" ></option>
+			</select>
+			<br/>　表示
+			<select id="selectViewType" name="selectViewType">
+				<option th:each="item : ${viewTypeMap}" th:value="${item.key}"  th:text="${item.value}" th:selected="${item.key == selectedViewType}" ></option>
+			</select>
+			<br/>
+			<input type="button" value="　設　定　" th:onclick="formSubmit(this,this.form, [[${userData.user_no}]])" >
+			<br/><br/>
+			<div id="mainArea">
+				<table border="0.7" cellspacing="0" bordercolor="#333333" >
+					<th:block th:each ="engWord, iterStat : ${engWordList}" id="aaa">
+						<div >
+							<div>
+								<th:block th:text="${engWord.ask}" width="200pt" >
+							</div>
+							<input name="mondai" class="s__inputtext" type="text" style="left:400px;" th:onchange="onclickButton(form,[[${engWord}]],[[${userData}]],[[${iterStat.index}]])" >
+							<input type="button" name="googleTeacher" value= "help" th:onclick="onClickGoogleTeacher([[${engWord}]],[[${userData}]],[[${iterStat.index}]])">
+							<br/><br/>
+							<img name="ansOkImg" th:src="${engWord.gazoPathOK}" style="display:none" width="200pt">
+							<img name="ansNGImg" th:src="@{/image/はずれ.png}" style="display:none">
+							<br/>
+							<div name="ansComment"></div>
+						</div>
+					</th:block>
+				</TABLE>
+			</div>
+
+			<!-- <video src="https://www.youtube.com/embed/1UwMvaohxQY" controls autoplay="false" muted="false"  ></video> -->
+			
+		<div th:if="${yutubeUrl != null} ">
+			<iframe width="560" height="315" th:src="${'https://www.youtube.com/embed/' +  dogaData.yutubeUrl }" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>			
+		</div>
 
 
-        <!-- 画面固有のjs -->
-
-            <div layout:fragment="script_js">
-                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-                <!-- <script type="text/javascript" th:src="@{./js/proc.js}"></script> -->
-                <script type="text/javascript" th:src="@{/demo.js}"></script>
-                <script type="text/javascript" th:src="@{/js/proc.js}"></script>
-                <!-- <link rel="stylesheet" th:href="sample.css"> -->
-                <!-- <script th:src="${'../js/proc.js'" charset="utf-8"></script> -->
-            </div>
-            <!-- <script src="./js/proc.js"></script> -->
-            <!-- <p>
-                <span th:text="${'こんにちは。' + userData.first_name + 'さん。'}"></span>
-            </p>
-
-            <h2 th:text="${'次の単語を英語にして'}" ></h2> -->
-
-        <form id="frmEngWord" th:object="${form}" class="">
-        　職業
-        <!-- <select th:field="${userData.}" onchange="" > -->
-        <select id="selectschoolType" name="selectschoolType">
-            <option th:each="item : ${scoolTypeMap}" th:value="${item.key}"  th:text="${item.value}" th:selected="${item.key == selectedSchoolType}" ></option>
-        </select>
-        　学年
-        <select id="selectschoolYear" name="selectschoolYear" >
-            <option th:each="item : ${schoolYearMap}" th:value="${item.key}"  th:text="${item.value}" th:selected="${item.key == selectedSchoolYear}" ></option>
-        </select>
-        　単語
-        <select id="selectWordType" name="selectWordType">
-            <option th:each="item : ${engWordTypeMap}" th:value="${item.key}"  th:text="${item.value}" th:selected="${item.key == selectedEngWordType}" ></option>
-        </select>
-
-        　表示
-        <select id="selectViewType" name="selectViewType">
-            <option th:each="item : ${viewTypeMap}" th:value="${item.key}"  th:text="${item.value}" th:selected="${item.key == selectedViewType}" ></option>
-        </select>
-
-        <input type="button" value="設定" th:onclick="formSubmit(this,this.form, [[${userData.user_no}]])" >
-
-        <div id="mainArea">
-            <table border="0.7" cellspacing="0" bordercolor="#333333" >
-            <th:block th:each ="engWord, iterStat : ${engWordList}" id="aaa">
-                <div >
-                    <!-- <font size="5"> -->
-                        <!-- <input type="hidden" th:field="${engWordList[__${iterStat.index}__].touan} ">
-                        <input type="hidden" th:field="${engWordList[__${iterStat.index}__].googleTeacher} "> -->
-                        <!-- <input type="hidden" th:field="${engWord.touan}"> -->
-                        <!-- <input type="hidden" th:field="${engWord.googleTeacher}"> -->
-
-                            <TR >
-                                <th valign="top">
-                                    <th:block th:text="${engWord.ask}" width="200pt" >
-                                </th>
-                                <th valign="top">
-                                    <input name="mondai" class="s__inputtext" type="text" style="left:400px;" >
-                                </th>
-                                <th valign="top">
-                                    <input type="button" value= "確認" th:onclick="onclickButton(form,[[${engWord}]],[[${userData}]],[[${iterStat.index}]])";>
-                                </th>
-                                <th valign="top">
-                                    <input type="button" name="googleTeacher" value= "google先生" th:onclick="onClickGoogleTeacher([[${engWord}]],[[${userData}]],[[${iterStat.index}]])">
-                                </th>
-
-                                
-                                <!-- <input type="button" value= "確認" onclick="onclickButton()";> -->
-                                <!-- <br><br> -->
-                                <!-- <img name="ansOkImg" th:src="@{/image\stpri\13.jfif}" style="display:none"> -->
-                                <th>
-                                    <img name="ansOkImg" th:src="${engWord.gazoPathOK}" style="display:none">
-                                    <img name="ansNGImg" th:src="@{/image/はずれ.png}" style="display:none">
-                                    <br/>
-                                    <div name="ansComment"></div>
-                                </th>
-                            </TR>
-                        <!-- </font> -->
-                    </div>
-                </th:block>
-            </TABLE>
-            </div>
-
-            <!-- <div class="s__section">
-                <h3 class="s__ttl">
-                    <span>検討中グループ名称</span>
-                </h3>
-                <input class="s__inputtext" type="text" placeholder="2021/01/31 〇〇現場用" th:field="*{candidateGroupName}">
-            </div>             -->
-
-
-            <p>問１　あなたはテレビを買いました。 </p>
-            　<input type="text" id="q1">
-            　<input type="button" id="a1" value= "確認" onclick="exec1()">
-            　<input type="button" id="h1" value= "ヒント" onclick="execHint1()">
-            <div class="class2">
-                <img id="img1" th:src="@{/image/正解1.jfif}" style="display:none">
-                <img id="img1hazure1" th:src="@{/image/はずれ.png}" style="display:none">
-                <div id="o1"></div>
-            </div>
-
-            <p>問２　あなたはテレビを買いましたか。 </p>
-            　<input type="text" id="q2"  >
-            　<input type="button" id="a2" value= "確認" onclick="exec2()";>
-                <div class="class2">
-                    <img id="img2" th:src="@{/image/正解2.jfif}" style="display:none">
-                    <img id="img1hazure2" th:src="@{/image/はずれ.png}" style="display:none">
-                    <div id="o2"></div>
-                </div>
-
-            <p>問３　あなたはテレビをみている所です。 </p>
-            　<input type="text" id="q3"  >
-            　<input type="button" id="a3" value= "確認" onclick="exec3()";>
-                <div class="class2">
-                    <img id="img3" th:src="@{/image/正解3.jfif}" style="display:none">
-                    <img id="img1hazure3" th:src="@{/image/はずれ.png}" style="display:none">
-                    <div id="o3"></div>
-                </div>
-
-            <p>問４　あなたは昨日テレビをみましたか。 </p>
-            　<input type="text" id="q4"  >
-            　<input type="button" id="a4" value= "確認" onclick="exec4()";>
-            <div class="class2">
-                <img id="img4" th:src="@{/image/正解4.jfif}" style="display:none">
-                <img id="img1hazure4" th:src="@{/image/はずれ.png}" style="display:none">
-                <div id="o4"></div>
-            </div>
-
-            <p>問５　あなたは明日テレビをみます。 </p>
-            　<input type="text" id="q5"  >
-            　<input type="button" id="a5" value= "確認" onclick="exec5()";>
-                <div class="class2">
-                    <img id="img5" th:src="@{/image/正解5.jpg}" style="display:none">
-                    <img id="img1hazure5" th:src="@{/image/はずれ.png}" style="display:none">
-                    <div id="o5"></div>
-                </div>
-        </form>
-        </div>
-     </body>
-    
-    
-    
+		</th:block>
+		</div>
+		</form>
+		</div>
+	</body>
 </html> 
+
+

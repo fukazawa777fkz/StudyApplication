@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.DogaMapper">
+  <select id="selectYoutubeUrl" resultType="com.example.demo.entity.DogaData">
+    SELECT
+      dm.youtube_url
+    FROM DOUGA_MASTER dm
+    LEFT OUTER JOIN user_master2 um
+      ON dm.user_no = um.user_no 
+    WhERE
+      dm.user_no =  1 -- #{user_no} 
+    <!-- ORDER BY RAND() -->
+    LIMIT 1
+  </select>
+</mapper>

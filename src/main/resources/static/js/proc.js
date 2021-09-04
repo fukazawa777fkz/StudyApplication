@@ -21,7 +21,12 @@ function onclickButton(form,engWord,userData,index){
         else{
             document.getElementsByName("ansComment")[index].innerHTML = engWord.ok_comment + userData.first_name;
         }
+
+        var audio_media = document.getElementById("seikai");
+        audio_media.volume = audio_media.volume * 0.5;
+        audio_media.play();
         document.getElementsByName('ansOkImg')[index].style.display = 'inline';
+        document.getElementsByName('ansOkImg')[index].WIDTH = 200;
         document.getElementsByName('ansNGImg')[index].style.display = 'none';
         resultCommit(form,engWord,userData,1);
 
@@ -34,6 +39,7 @@ function onclickButton(form,engWord,userData,index){
         }
         document.getElementsByName('ansOkImg')[index].style.display = 'none';
         document.getElementsByName('ansNGImg')[index].style.display = 'inline';
+        document.getElementsByName('ansNGImg')[index].HEIGHT = 100;
         resultCommit(form,engWord,userData,0);
     }
 }

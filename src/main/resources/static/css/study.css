@@ -6,9 +6,9 @@ header {
 
 
 #mainArea {
-    width: auto;
-    margin-bottom: 18px;
-    margin-left: 60px;
+    width: 400px;
+    margin-bottom: 40px;
+    margin-left: 20px;
     /* padding:2px; */
     /* border : solid 1px; */
     text-align: left;

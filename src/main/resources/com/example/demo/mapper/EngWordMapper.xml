@@ -45,6 +45,7 @@
                 AND ewm.word_type = #{wordType}
             </if>
             AND st.OK_count is null
+        ORDER BY RAND()
         LIMIT 20
     </select>
 

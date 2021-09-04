@@ -42,7 +42,6 @@ public class EngWordServiceImpl implements EngWordService{
      */
     @Override
     public List<EngWordForm> selectEngWordList(EngWordParamaterBean param) {
-        
         int schoolType = param.getSchoolType();
         int schoolYear = param.getSchoolYear();
         int wordType = param.getWordType();
