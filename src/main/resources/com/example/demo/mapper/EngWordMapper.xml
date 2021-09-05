@@ -46,7 +46,7 @@
             </if>
             AND st.OK_count is null
         ORDER BY RAND()
-        LIMIT 20
+        LIMIT 10
     </select>
 
 </mapper>

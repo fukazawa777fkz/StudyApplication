@@ -1,3 +1,9 @@
+
+document.addEventListener("DOMContentLoaded", function(event) {
+    console.log('test2');
+});
+
+
 function formSubmit(button,form, user_no) {
     var baseAction = "/eng";
 	var selectWordType  = document.getElementById('selectWordType').selectedIndex;
@@ -12,6 +18,8 @@ function formSubmit(button,form, user_no) {
     location.href = baseAction;
 }
 
+
+var _video_play = false;
 function onclickButton(form,engWord,userData,index){
     var elem = document.getElementsByName("mondai")[index];
     if (elem.value.toLowerCase() == engWord.mondai.toLowerCase()){
@@ -30,6 +38,15 @@ function onclickButton(form,engWord,userData,index){
         document.getElementsByName('ansNGImg')[index].style.display = 'none';
         resultCommit(form,engWord,userData,1);
 
+
+        if (_video_play == false){
+            // https://cly7796.net/blog/javascript/manipulating-youtube-iframes-written-directly-in-html-with-javascript/
+            // API読み込み
+            var tag = document.createElement('script');
+            tag.src = "https://www.youtube.com/iframe_api";
+            var firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        }
     }else{
         if (engWord.ng_comment == null){
             document.getElementsByName("ansComment")[index].innerHTML = "間違ってるゼ。" + userData.first_name;
@@ -42,6 +59,43 @@ function onclickButton(form,engWord,userData,index){
         document.getElementsByName('ansNGImg')[index].HEIGHT = 100;
         resultCommit(form,engWord,userData,0);
     }
+
+}
+
+
+// https://cly7796.net/blog/javascript/manipulating-youtube-iframes-written-directly-in-html-with-javascript/
+// https://web-no-hito.com/youtube_ios_autoplay/
+function onYouTubeIframeAPIReady() {
+  
+  var videoUrl = document.getElementById("youtube_url");
+  player = new YT.Player('player', {
+    height: '360',
+    width: '640',
+    videoId: videoUrl.innerText,
+    events: {
+      'onReady': onPlayerReady,
+      'onStateChange': onPlayerStateChange
+    }
+  });
+}
+
+// 4. The API will call this function when the video player is ready.
+function onPlayerReady(event) {
+  event.target.playVideo();
+}
+
+// 5. The API calls this function when the player's state changes.
+//    The function indicates that when playing a video (state=1),
+//    the player should play for six seconds and then stop.
+var done = false;
+function onPlayerStateChange(event) {
+  if (event.data == YT.PlayerState.PLAYING && !done) {
+    // setTimeout(stopVideo, 6000);
+    done = true;
+  }
+}
+function stopVideo() {
+//   player.stopVideo();
 }
 
 function resultCommit(form,engWord,userData,judgResult) {

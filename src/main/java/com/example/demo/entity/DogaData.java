@@ -20,6 +20,4 @@ public class DogaData {
   public void setYoutube_url(String youtube_url) {
     this.youtube_url = youtube_url;
   }
-
-
 }

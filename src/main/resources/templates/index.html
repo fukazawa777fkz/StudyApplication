@@ -75,14 +75,11 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layo
 					</th:block>
 				</TABLE>
 			</div>
-
-			<!-- <video src="https://www.youtube.com/embed/1UwMvaohxQY" controls autoplay="false" muted="false"  ></video> -->
 			
-		<div th:if="${yutubeUrl != null} ">
-			<iframe width="560" height="315" th:src="${'https://www.youtube.com/embed/' +  dogaData.yutubeUrl }" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>			
-		</div>
-
-
+			<!-- ■ユーチューブ埋め込み -->
+			<!-- <iframe id="seikai_video"  width="560" height="315" th:src="${'https://www.youtube.com/embed/' +  dogaData.youtube_url + '?enablejsapi=1&192.168.1.1:8080'}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+			<div id="player"></div>
+			<div id="youtube_url" th:text="${dogaData.youtube_url}" hidden></div>
 		</th:block>
 		</div>
 		</form>
