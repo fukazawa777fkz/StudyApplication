@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", function(event) {
     console.log('test2');
 });
@@ -62,26 +61,51 @@ function onclickButton(form,engWord,userData,index){
 
 }
 
-
+var ytPlayer;
 // https://cly7796.net/blog/javascript/manipulating-youtube-iframes-written-directly-in-html-with-javascript/
 // https://web-no-hito.com/youtube_ios_autoplay/
 function onYouTubeIframeAPIReady() {
   
   var videoUrl = document.getElementById("youtube_url");
-  player = new YT.Player('player', {
-    height: '360',
-    width: '640',
-    videoId: videoUrl.innerText,
+//   player = new YT.Player('player', {
+//     height: '360',
+//     width: '640',
+//     videoId: videoUrl.innerText,
+//     events: {
+//       'onReady': onPlayerReady,
+//       'onStateChange': onPlayerStateChange
+//     }
+//   });
+
+    ytPlayer = new YT.Player(
+    "player", // 埋め込む場所の指定
+    {
+      videoId: videoUrl.innerText, // YouTubeのID,
+      playerVars: {
+        // height: '180',
+        width: '50',
+        height: '50',
+        loop: 1,
+        autoplay: 0,
+        rel: 0,
+        controls: 1,
+        modestbranding: 1,
+        widgetid: 1,
+        playlist:videoUrl.innerText,
+        playsinline: 1, // スマホでも自動再生
+        showinfo: 0,
+        fs: 0,
+      },
     events: {
-      'onReady': onPlayerReady,
-      'onStateChange': onPlayerStateChange
-    }
+        onReady: onPlayerReady,　// プレーヤーの準備ができたとき
+        onStateChange: onPlayerStateChange,　// プレーヤーの再生、一時停止、終了したとき
+      },
   });
 }
 
 // 4. The API will call this function when the video player is ready.
 function onPlayerReady(event) {
-  event.target.playVideo();
+    // event.target.playVideo();　// 動画再生
 }
 
 // 5. The API calls this function when the player's state changes.
@@ -89,10 +113,45 @@ function onPlayerReady(event) {
 //    the player should play for six seconds and then stop.
 var done = false;
 function onPlayerStateChange(event) {
-  if (event.data == YT.PlayerState.PLAYING && !done) {
-    // setTimeout(stopVideo, 6000);
-    done = true;
-  }
+//   if (event.data == YT.PlayerState.PLAYING && !done) {
+//     setTimeout(stopVideo, 6000);
+//     done = true;
+//   }
+
+    // if (event.data == YT.PlayerState.ENDED) {
+    //     event.target.playVideo();
+    // }
+
+    // 現在のプレーヤーの状態を取得
+
+    // var aaa = document.getElementById("player");
+
+    document.getElementById("testtest").style.display ="none";
+
+    // YT.controls = 0;
+    var ytStatus = event.data;
+    // 再生終了したとき
+    if (ytStatus == YT.PlayerState.ENDED) {
+        console.log('再生終了');
+        // 動画再生
+        event.target.playVideo();
+    }
+    // 再生中のとき
+    if (ytStatus == YT.PlayerState.PLAYING) {
+        console.log('再生中');
+    }
+    // 停止中のとき
+    if (ytStatus == YT.PlayerState.PAUSED) {
+        console.log('停止中');
+    }
+    // バッファリング中のとき
+    if (ytStatus == YT.PlayerState.BUFFERING) {
+        console.log('バッファリング中');
+    }
+    // 頭出し済みのとき
+    if (ytStatus == YT.PlayerState.CUED) {
+        console.log('頭出し済み');
+    }
 }
 function stopVideo() {
 //   player.stopVideo();
@@ -156,6 +215,8 @@ function onClickGoogleTeacher(engWord,userData,index){
 function exec1() {
     var elem = document.getElementById("q1");
     var o1 = document.getElementById("o1");
+
+	var aaaaa = "";
     // var now = new Date();
     // var hour = now.getHours();
     // var min = now.getMinutes();

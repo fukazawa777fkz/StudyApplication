@@ -35,7 +35,6 @@
             ON ewm.mondai_id = st.mondai_id
         LEFT OUTER JOIN user_master2 um
             ON st.user_no = um.user_no 
-            AND um.user_no = 1  
         WhERE
             ewm.school_type = #{schoolType}           -- 小中高
             <if test="schoolYear != 0">
@@ -45,8 +44,8 @@
                 AND ewm.word_type = #{wordType}
             </if>
             AND st.OK_count is null
-        ORDER BY RAND()
-        LIMIT 10
+        <!-- ORDER BY RAND() -->
+        LIMIT 30
     </select>
 
 </mapper>

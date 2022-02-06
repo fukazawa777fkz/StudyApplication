@@ -14,6 +14,9 @@ public class DogaServiceImpl implements DogaService {
 	public DogaData selectYoutubeUrl(int user_no){
 		// return null;
 		List<DogaData> dtoList =  dogaMapper.selectYoutubeUrl(user_no);
+		if (dtoList.isEmpty()){
+			return null;
+		}
 		return dtoList.get(0);
 	}
 }

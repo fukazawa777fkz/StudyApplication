@@ -28,17 +28,14 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layo
 		<!-- 画面固有のjs -->
 		<div layout:fragment="script_js">
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-			<!-- <script type="text/javascript" th:src="@{./js/proc.js}"></script> -->
 			<script type="text/javascript" th:src="@{/demo.js}"></script>
 			<script type="text/javascript" th:src="@{/js/proc.js}"></script>
-			<!-- <link rel="stylesheet" th:href="sample.css"> -->
-			<!-- <script th:src="${'../js/proc.js'" charset="utf-8"></script> -->
 		</div>
 
 		<form id="frmEngWord" th:object="${form}" class="">
 			<audio id="seikai" src="mp3/seikai.mp3" controls hidden> </audio>
-			
-				　職業
+
+			　職業
 			<select id="selectschoolType" name="selectschoolType">
 				<option th:each="item : ${scoolTypeMap}" th:value="${item.key}"  th:text="${item.value}" th:selected="${item.key == selectedSchoolType}" ></option>
 			</select>
@@ -57,6 +54,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layo
 			<br/>
 			<input type="button" value="　設　定　" th:onclick="formSubmit(this,this.form, [[${userData.user_no}]])" >
 			<br/><br/>
+			<!-- ■ユーチューブ埋め込み -->
 			<div id="mainArea">
 				<table border="0.7" cellspacing="0" bordercolor="#333333" >
 					<th:block th:each ="engWord, iterStat : ${engWordList}" id="aaa">
@@ -70,16 +68,21 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layo
 							<img name="ansOkImg" th:src="${engWord.gazoPathOK}" style="display:none" width="200pt">
 							<img name="ansNGImg" th:src="@{/image/はずれ.png}" style="display:none">
 							<br/>
-							<div name="ansComment"></div>
+							<div name="ansComment"></div><br/>
+							
+							<!-- <th:text th:if="${__${iterStat.index}__ == 0}"> -->
+								<!-- <input type="button" name="rentalDd_option" class="spinner_down" value="" th:field="${__${iterStat.index}__+'_'+__${optionIterStat.index}__+'_rental'}">
+								<th:block th:if="${dtoObj.candidateGroupUpdateTime != null}"> -->
+								<div id="testtest">
+									<!-- <iframe id="seikai_video"  width="560" height="315" th:src="${'https://www.youtube.com/embed/' +  dogaData.youtube_url + '?enablejsapi=1&192.168.1.1:8080'}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+									<div id="player"></div>
+									<!-- <div id="youtube_url" th:text="${dogaData.youtube_url}" hidden></div> -->
+								<!-- </div> -->
 						</div>
 					</th:block>
 				</TABLE>
 			</div>
 			
-			<!-- ■ユーチューブ埋め込み -->
-			<!-- <iframe id="seikai_video"  width="560" height="315" th:src="${'https://www.youtube.com/embed/' +  dogaData.youtube_url + '?enablejsapi=1&192.168.1.1:8080'}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
-			<div id="player"></div>
-			<div id="youtube_url" th:text="${dogaData.youtube_url}" hidden></div>
 		</th:block>
 		</div>
 		</form>
