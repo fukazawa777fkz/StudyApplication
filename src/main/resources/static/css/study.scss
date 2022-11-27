@@ -1,0 +1,136 @@
+
+
+// .search__box {
+
+// 	option {
+// 		background: red;
+// 	}
+	
+	
+// 	p {
+// 	  color: white;
+// 	  font-weight: bold;
+// 	  text-align: center;
+// 	}
+//   }
+  
+
+
+// @import "config";
+
+
+// header {
+//     /* https://lopan.jp/halfscreen-photo-header/ */
+// 	/* position: relative;
+// 	background: url(../image/wallpaper/jell.jfif) center; */
+// }
+
+
+// #mainArea {
+//     width: 444px;
+//     margin-bottom: 40px;
+//     margin-left: 20px;
+//     /* padding:2px; */
+//     /* border : solid 1px; */
+//     text-align: left;
+// 	/* vertical-align: top; */
+// }
+
+
+// #headerArea {
+// background-color: #aaa4ff;
+// }
+
+// #mainArea img {
+//     width: 60%;
+// }
+
+// .MyPage_Content {
+
+// // 右コンテンツ：セクションまとめ
+// .right__box {
+//   @extend .main__box;
+// }
+// // 右コンテンツ：タイトル
+// .right__box--title {
+//   @extend .title;
+// }
+// // 右コンテンツ：サブタイトル
+// .right__box--subtitle {
+//   @extend .subtitle;
+// }
+// // 右コンテンツ：インフォメーション
+// .right__info {
+//   width: 100%;
+//   border: 1px solid $main__color--textlow;
+//   padding: 1% 2% 2% 2%;
+//   margin-bottom: 2%;
+
+//   li {
+// 	line-height: 1.75em;
+
+// 	a {
+// 	  color: $main__color--text;
+// 	}
+//   }
+//   @include tb {
+// 	width: 100%;
+// 	padding: 2% 3% 3% 3%;
+//   }
+// }
+// // 2分割コンテンツ
+// .right__2culumn {
+//   @extend .two_colomns;
+// }
+// // 3/4分割コンテンツ
+// .right__three-quarters_colomns {
+//   @extend .three-quarters_colomns;
+// }
+
+// }
+
+// ----------------------------------------
+// MixIn
+// ----------------------------------------
+@mixin tb {
+	@media(max-width: $break-tablet) {
+	  @content;
+	}
+ }
+
+/* ----------------------------------------
+// main_contents
+---------------------------------------- */
+.main__box {
+	margin-bottom: 5%;
+
+  }
+
+.right {
+	padding-top: 2%;
+	padding-left: 2%;
+    width: 100%;
+    max-width: 770px;
+	background-color: lightgoldenrodyellow;
+    .right__box {
+		@extend .main__box;
+	  }
+	  border: 5px solid ;
+	  margin-bottom: 5%;
+
+}
+    // 右コンテンツ：インフォメーション
+    .right__info {
+		width: 80%;
+		border: 5px solid ;
+		padding: 1% 2% 2% 2%;
+		margin-bottom: 5%;
+  
+		li {
+		  line-height: 1.75em;
+  
+		  a {
+			color: red;
+		  }
+		}
+	}

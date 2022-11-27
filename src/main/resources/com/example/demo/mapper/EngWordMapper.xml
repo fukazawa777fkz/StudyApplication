@@ -43,7 +43,8 @@
             <if test="wordType != 0">
                 AND ewm.word_type = #{wordType}
             </if>
-            AND st.OK_count is null
+            -- AND st.OK_count is null
+						AND ewm.RECKB = 0
         <!-- ORDER BY RAND() -->
         LIMIT 30
     </select>
