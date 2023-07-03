@@ -11,7 +11,8 @@ function formSubmit(button,form, user_no) {
     baseAction = baseAction + '?user_no=' + user_no;
     baseAction = baseAction + '&engWordType=' + selectWordType;
     baseAction = baseAction + '&schoolType=' + selectSchoolType;
-    baseAction = baseAction + '&schoolYear=' + selectSchoolYear;
+    // baseAction = baseAction + '&schoolYear=' + selectSchoolYear;
+    baseAction = baseAction + '&schoolYear=' + 5;
 
     form.method = "get"
     location.href = baseAction;
@@ -23,18 +24,19 @@ function onclickButton(form,engWord,userData,index){
     var elem = document.getElementsByName("mondai")[index];
     if (elem.value.toLowerCase() == engWord.mondai.toLowerCase()){
         if (engWord.ok_comment == null){
-            document.getElementsByName("ansComment")[index].innerHTML = "正解だぜ。" + userData.first_name;
+            // document.getElementsByName("ansComment")[index].innerHTML = "正解だぜ。" + userData.first_name;
+            document.getElementsByName("ansComment")[index].innerHTML = "正解";
         }
         else{
             document.getElementsByName("ansComment")[index].innerHTML = engWord.ok_comment + userData.first_name;
         }
 
-        var audio_media = document.getElementById("seikai");
-        audio_media.volume = audio_media.volume * 0.5;
-        audio_media.play();
-        document.getElementsByName('ansOkImg')[index].style.display = 'inline';
-        document.getElementsByName('ansOkImg')[index].WIDTH = 200;
-        document.getElementsByName('ansNGImg')[index].style.display = 'none';
+        // var audio_media = document.getElementById("seikai");
+        // audio_media.volume = audio_media.volume * 0.5;
+        // audio_media.play();
+        // document.getElementsByName('ansOkImg')[index].style.display = 'inline';
+        // document.getElementsByName('ansOkImg')[index].WIDTH = 200;
+        // document.getElementsByName('ansNGImg')[index].style.display = 'none';
         resultCommit(form,engWord,userData,1);
 
 
@@ -48,14 +50,15 @@ function onclickButton(form,engWord,userData,index){
         }
     }else{
         if (engWord.ng_comment == null){
-            document.getElementsByName("ansComment")[index].innerHTML = "間違ってるゼ。" + userData.first_name;
+            // document.getElementsByName("ansComment")[index].innerHTML = "間違ってるゼ。" + userData.first_name;
+            document.getElementsByName("ansComment")[index].innerHTML = "不正解";
         }
         else{
             document.getElementsByName("ansComment")[index].innerHTML = engWord.ng_comment + userData.first_name;
         }
-        document.getElementsByName('ansOkImg')[index].style.display = 'none';
-        document.getElementsByName('ansNGImg')[index].style.display = 'inline';
-        document.getElementsByName('ansNGImg')[index].HEIGHT = 100;
+        // document.getElementsByName('ansOkImg')[index].style.display = 'none';
+        // document.getElementsByName('ansNGImg')[index].style.display = 'inline';
+        // document.getElementsByName('ansNGImg')[index].HEIGHT = 100;
         resultCommit(form,engWord,userData,0);
     }
 

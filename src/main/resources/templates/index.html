@@ -112,6 +112,9 @@
                   <td th:text="${engWord.ask}"></td>
                   <td>
                     <input name="mondai" class="s__inputtext" type="text" style="left:400px;" th:onchange="onclickButton(form,[[${engWord}]],[[${userData}]],[[${iterStat.index}]])">
+                    <div name="ansComment"></div><br />
+                    <img name="ansOkImg" th:src="${engWord.gazoPathOK}" style="display:none" width="200pt">
+                    <img name="ansNGImg" th:src="@{/image/はずれ.png}" style="display:none">
                   </td>
                   <td>
                     <input type="button" name="googleTeacher" value="help" th:onclick="onClickGoogleTeacher([[${engWord}]],[[${userData}]],[[${iterStat.index}]])">
